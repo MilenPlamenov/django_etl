@@ -23,8 +23,8 @@ class RestOfWorldSpider(scrapy.Spider):
         item['publication_date'] = response.css('time::attr(datetime)').get()
         item['author'] = response.css('a.author::text').get()
         item['image_urls'] = response.css('article img::attr(src)').getall()
-        # Add NER extraction here (see below)
-        item['entities'] = response.css('article img::attr(src)').getall()
+        # Add NER extraction here
+        item['entities'] = response.css('article img::attr(src)').getall() # for tests
         yield item
 
     # def parse_date(self, date_string):

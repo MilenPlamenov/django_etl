@@ -22,9 +22,9 @@ class CapitalBriefSpider(scrapy.Spider):
         item['publication_date'] = self.parse_date(response.css('time::attr(datetime)').get())
         item['author'] = response.css('.author a::text').get()
         item['image_urls'] = response.css('article img::attr(src)').getall()
-        # Add NER extraction here (see below)
+        # Add NER extraction here
         yield item
 
-    def parse_date(self, date_string):
-        # 2024-05-20T10:30:00Z
-        return datetime.strptime(date_string, "%Y-%m-%dT%H:%M:%SZ")
+    # def parse_date(self, date_string):
+    #     # 2024-05-20T10:30:00Z
+    #     return datetime.strptime(date_string, "%Y-%m-%dT%H:%M:%SZ")
