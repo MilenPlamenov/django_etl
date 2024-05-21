@@ -17,13 +17,14 @@ class RestOfWorldSpider(scrapy.Spider):
 
     def parse_article(self, response):
         item = ArticleItem()
-        item['title'] = response.css('h1::text').get()
-        item['body'] = ' '.join(response.css('article p::text').getall())
-        item['url'] = response.url
+        item['title'] = response.css('h2.headline::text').get()
+        item['body'] = response.css('div.article-info__dek::text').get()
+        item['url'] = response.css('a.article-link').attrib.get('href')
         item['publication_date'] = response.css('time::attr(datetime)').get()
-        item['author'] = response.css('.author a::text').get()
+        item['author'] = response.css('a.author::text').get()
         item['image_urls'] = response.css('article img::attr(src)').getall()
         # Add NER extraction here (see below)
+        item['entities'] = response.css('article img::attr(src)').getall()
         yield item
 
     # def parse_date(self, date_string):

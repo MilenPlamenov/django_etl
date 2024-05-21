@@ -44,7 +44,7 @@ class ArticlesScraperPipeline:
 
 class SQLitePipeline:
     def open_spider(self, spider):
-        self.conn = sqlite3.connect('db.sqlite3')
+        self.conn = sqlite3.connect('db.sssqlite3')
         self.cursor = self.conn.cursor()
         self.cursor.execute('''
             CREATE TABLE IF NOT EXISTS articles_article (
@@ -64,8 +64,8 @@ class SQLitePipeline:
         self.conn.close()
 
     def process_item(self, item, spider):
-        self.cursor.execute('''
-            INSERT OR REPLACE INTO articles_article (title, body, url, publication_date, author, image_urls, entities) VALUES (?, ?, ?, ?, ?, ?, ?)
+        print('''
+            INSERT OR IGNORE INTO articles_article (title, body, url, publication_date, author, image_urls, entities) VALUES (?, ?, ?, ?, ?, ?, ?)
         ''', (
             item['title'],
             item['body'],
@@ -75,5 +75,17 @@ class SQLitePipeline:
             json.dumps(item['image_urls']),
             json.dumps(item['entities'])
         ))
-        self.connection.commit()
+        self.cursor.execute('''
+            INSERT OR IGNORE INTO articles_article (title, body, url, publication_date, author, image_urls, entities) VALUES (?, ?, ?, ?, ?, ?, ?)
+        ''', (
+            item['title'],
+            item['body'],
+            item['url'],
+            item['publication_date'],
+            item['author'],
+            json.dumps(item['image_urls']),
+            json.dumps(item['entities'])
+        ))
+        print('----------------------------------------------------------')
+        self.conn.commit()
         return item

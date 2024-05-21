@@ -1,0 +1,20 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Main Page</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'main/main.css' %}">
+
+</head>
+<body>
+    <h1>Welcome to the Article Management System</h1>
+    <div class="button-container">
+        <a href="{% url 'article-list' %}" class="button">View Articles</a>
+        <a href="{% url 'article-create' %}" class="button">Create New Article</a>
+        <a href="{% url 'schema-swagger-ui' %}" class="button">Documentation</a>
+
+    </div>
+</body>
+</html>
