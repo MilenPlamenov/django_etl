@@ -9,6 +9,7 @@
 from itemadapter import ItemAdapter
 import sqlite3
 import json
+import os
 from datetime import datetime
 
 
@@ -17,34 +18,11 @@ class ArticlesScraperPipeline:
         return item
 
 
-# class SQLitePipeline:
-#
-#     def process_item(self, item, spider):
-#         # Convert publication_date to a datetime object if it's a string
-#         if isinstance(item['publication_date'], str):
-#             item['publication_date'] = datetime.fromisoformat(item['publication_date'])
-#
-#         # Save item to the Django model
-#         article, created = Article.objects.update_or_create(
-#             url=item['url'],
-#             defaults={
-#                 'title': item['title'],
-#                 'body': item['body'],
-#                 'publication_date': item['publication_date'],
-#                 'author': item['author'],
-#                 'image_urls': json.loads(item['image_urls']),
-#                 'entities': json.loads(item['entities']),
-#             }
-#         )
-#         print(article)
-#         print('-----------------------------------------------!!')
-#         print(created)
-#         return item
-
-
 class SQLitePipeline:
     def open_spider(self, spider):
-        self.conn = sqlite3.connect('db.sssqlite3')
+        path = os.path.dirname(os.path.abspath(__file__))
+        db = os.path.abspath(os.path.join(path, '../../db.sqlite3'))
+        self.conn = sqlite3.connect(db)
         self.cursor = self.conn.cursor()
         self.cursor.execute('''
             CREATE TABLE IF NOT EXISTS articles_article (
