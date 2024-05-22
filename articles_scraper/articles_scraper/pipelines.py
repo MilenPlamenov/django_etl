@@ -42,17 +42,17 @@ class SQLitePipeline:
         self.conn.close()
 
     def process_item(self, item, spider):
-        print('''
-            INSERT OR IGNORE INTO articles_article (title, body, url, publication_date, author, image_urls, entities) VALUES (?, ?, ?, ?, ?, ?, ?)
-        ''', (
-            item['title'],
-            item['body'],
-            item['url'],
-            item['publication_date'],
-            item['author'],
-            json.dumps(item['image_urls']),
-            json.dumps(item['entities'])
-        ))
+        # print('''
+        #     INSERT OR IGNORE INTO articles_article (title, body, url, publication_date, author, image_urls, entities) VALUES (?, ?, ?, ?, ?, ?, ?)
+        # ''', (
+        #     item['title'],
+        #     item['body'],
+        #     item['url'],
+        #     item['publication_date'],
+        #     item['author'],
+        #     json.dumps(item['image_urls']),
+        #     json.dumps(item['entities'])
+        # ))
         self.cursor.execute('''
             INSERT OR IGNORE INTO articles_article (title, body, url, publication_date, author, image_urls, entities) VALUES (?, ?, ?, ?, ?, ?, ?)
         ''', (
@@ -64,6 +64,5 @@ class SQLitePipeline:
             json.dumps(item['image_urls']),
             json.dumps(item['entities'])
         ))
-        print('----------------------------------------------------------')
         self.conn.commit()
         return item
