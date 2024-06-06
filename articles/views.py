@@ -7,6 +7,7 @@ from .serializers import ArticleSerializer
 class ArticleListView(generics.ListAPIView):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
+    template_name = 'asd'
 
 
 class ArticleDetailView(generics.RetrieveAPIView):
