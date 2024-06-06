@@ -1,7 +1,8 @@
-# Articles ETL Project by Milen Georgiev
+# Articles ETL Project
+
+![django and react](./static/integrate-django-react.jpg)
 
 ## Setup and Installation
-
 1. Clone the repository:
     ```sh
     git clone https://github.com/MilenPlamenov/django_etl.git
@@ -30,7 +31,13 @@
     python manage.py runserver
     ```
 
-6. To run the Scrapy spiders and populate the database:
+6. Run the React development server:
+    ```sh
+    cd frontend
+    npm run dev
+    ```
+
+7. To run the Scrapy spiders and populate the database:
     ```sh
     cd articles_scraper
     scrapy crawl restofworld
