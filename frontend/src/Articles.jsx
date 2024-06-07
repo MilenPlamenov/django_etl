@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './Articles.css'
 
 const Articles = () => {
   const [articles, setArticles] = useState([]);
@@ -35,7 +36,7 @@ const Articles = () => {
 
 console.log(articles);
   return (
-    <div className="container mt-5">
+    <div className="container mt-5 article-grid">
       <h1 className="text-center mb-4">Articles</h1>
       <div className="row">
         {articles.map(article => (
